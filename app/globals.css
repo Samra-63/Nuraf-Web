@@ -1,26 +1,194 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #060814; /* Deep Navy Dark Mode by default */
+  --foreground: #f8fafc;
+  
+  --color-primary-purple: #a855f7;
+  --color-primary-navy: #1e1b4b;
+  --color-accent-blue: #3b82f6;
+  
+  --font-sans: var(--font-geist-sans), Inter, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base style resets and scrollbars */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Light mode overrides - only active when class "light" is present */
+.light {
+  --background: #f8fafc; /* Light Grey background */
+  --foreground: #0f172a; /* Slate 900 */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #3730a3;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    box-shadow: 0 0 15px 2px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    opacity: 0.9;
+    box-shadow: 0 0 30px 6px rgba(168, 85, 247, 0.7);
+  }
 }
+
+@keyframes border-glow-purple {
+  0%, 100% {
+    border-color: rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    border-color: rgba(168, 85, 247, 1);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  }
+}
+
+@keyframes ripple-wave {
+  0% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4), 0 0 0 10px rgba(168, 85, 247, 0.2), 0 0 0 30px rgba(168, 85, 247, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(168, 85, 247, 0), 0 0 0 30px rgba(168, 85, 247, 0), 0 0 0 50px rgba(168, 85, 247, 0);
+  }
+}
+
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes checkmark-appear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom CSS classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.animate-border-glow {
+  animation: border-glow-purple 2.5s infinite ease-in-out;
+}
+
+.animate-ripple {
+  animation: ripple-wave 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-checkmark {
+  animation: checkmark-appear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Background Gradients */
+.bg-radial-glow {
+  background-image: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.15) 0%, rgba(6, 8, 20, 0) 70%);
+}
+
+.bg-radial-purple {
+  background-image: radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.12) 0%, rgba(6, 8, 20, 0) 60%);
+}
+
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
+}
+
+@keyframes logo-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-180deg);
+  }
+  65% {
+    opacity: 0.8;
+    transform: scale(1.12) rotate(380deg);
+  }
+  85% {
+    transform: scale(0.95) rotate(355deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.animate-logo-entrance {
+  animation: logo-entrance 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
